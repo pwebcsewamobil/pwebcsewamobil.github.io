@@ -1,0 +1,273 @@
+<html>
+
+<head>
+    <title>RentalAuto</title>
+    <!-- Page ini dikerjakan oleh Ananta Rizki Widyadana 05211940000143 -->
+    <!-- mostly inspired by https://www.traveloka.com/en-id/car-rental -->
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        .fntclr {
+            color: rgb(0, 200, 134);
+        }
+
+        .submit {
+            margin-left: 200px;
+            margin-top: 10px;
+        }
+
+        .label {
+            float: left;
+            width: 300px;
+        }
+
+        .infobox {
+            width: 120px;
+        }
+
+        .error {
+            color: red;
+            padding-left: 10px;
+        }
+
+        div {
+            padding: 5px;
+        }
+
+        .chkb {
+            margin-left: 125px;
+            margin-top: 10px;
+        }
+
+        .radiobtn {
+            margin-left: 125px;
+            margin-top: 10px;
+        }
+
+        .inputs {
+            background-color: cyan
+        }
+
+        fieldset {
+            border: 1px solid #888;
+        }
+
+        legend {
+            border: 1px solid #888;
+            background-color: rgb(0, 200, 134);
+            color: white;
+            font-weight: bold;
+            padding: .5em
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- script form -->
+    <script>
+
+        $(document).ready(function () {
+            $('.error').hide();
+            $('.userid').focus(function () {
+                $(this).addClass('inputs');
+            });
+            $('.password').focus(function () {
+                $(this).addClass('inputs');
+            });
+            $('.emailadd').focus(function () {
+                $(this).addClass('inputs');
+            });
+            $('.fooderror').addClass('error');
+            $('.fooderror').hide();
+            $('.payerror').addClass('error');
+            $('.payerror').hide();
+            $('.submit').click(function (event) {
+                var data = $('.userid').val();
+                if (validate_userid(data)) {
+                    $('.userid').next().hide();
+                }
+                else {
+                    $('.userid').next().show();
+                }
+                data = $('.password').val();
+                var len = data.length;
+                if (len < 1) {
+                    $('.password').next().show();
+                }
+                else {
+                    $('.password').next().hide();
+                }
+                data = $('.emailadd').val();
+                if (valid_email(data)) {
+                    $('.emailadd').next().hide();
+                }
+                else {
+                    $('.emailadd').next().show();
+                }
+                var count = 0;
+                $('div').find(':checkbox').each(function () {
+                    if ($(this).is(':checked')) {
+                        count++;
+                    }
+                });
+                if (count == 0) {
+                    $('.fooderror').css({ 'margin-left': 250 }).show();
+                }
+                else {
+                    $('.fooderror').hide();
+                }
+                count = 0;
+                $('div').find(':radio').each(function () {
+                    if ($(this).is(':checked')) {
+                        count++;
+                    }
+                });
+                if (count == 0) {
+                    $('.payerror').css({ 'margin-left': 250 }).show();
+                }
+                else {
+                    $('.payerror').hide();
+                }
+                count = $('select option:selected').val();
+                if (count == 0) {
+                    $('.infobox').next().show();
+                }
+                else {
+                    $('.infobox').next().hide();
+                }
+                event.preventDefault();
+            });
+        });
+        function valid_email(email) {
+            var pattern = new RegExp(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/);
+            return pattern.test(email);
+        }
+        function validate_userid(uid) {
+            var pattern = new RegExp(/^[A-Za-z]+$/);
+            return pattern.test(uid);
+        }
+        
+    </script>
+
+    <!-- page dimulai dari sini -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="color:rgb(0, 200, 134);">
+        <a class="navbar-brand font-weight-bolder" href="#" style="color:rgb(0, 200, 134);"> <i><i
+                    class="fas fa-car"></i></i> Rental Auto</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="aboutUs.html" style="color:rgba(0, 200, 134); font-weight: bold;">
+                    <p class="fntclr"> <i class='fas fa-user-tie' style="color:rgba(0, 200, 134);"></i> Tentang
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="daftarArmada.html" style="color:rgba(0, 200, 134); font-weight: bold;">
+                    <p class="fntclr"> <i class='fab fa-elementor' style="color:rgba(0, 200, 134);"></i> Daftar Armada
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#" style="color:rgba(0, 200, 134); font-weight: bold;">
+                    <p class="fntclr"> <i class="fas fa-phone"></i> Hubungi Kami
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="ketik disini" aria-label="Cari">
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Cari</button>
+        </form>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="row-sm-4"></div>
+            <div class="row-sm-4" style="margin-left: auto; margin-right: auto;">
+                <div>
+
+                    <form>
+                        <fieldset>
+            
+                            <legend style="text-align: center;">Silahkan isi data diri anda:</legend>
+                            <div id="u"> <span class="label">Nama Anda </span><input type="text" class="userid" name="userid" /><span
+                                    class="error">Bidang ini hanya menerima isi dengan karakter alfabet</span></div>
+                            
+                                    <div><span class="label">Email Address </span><input type="text" class="emailadd" name="emailid" /><span
+                                        class="error"> Alamat surel tidak valid</span></div>
+            
+                            <div id="p"><span class="label">Password </span><input type="password" class="password"
+                                    name="password" /><span class="error"> Password tidak boleh kosong</span></div>
+            
+                        </fieldset>
+                        <fieldset>
+                            <legend style="text-align: center;">Pilih opsi pembayaran</legend>
+                            <div><span class="label">Mode of Payment</span><br><input type="radio" name="paymode" class="radiobtn"
+                                value="Master Card">Kartu Kredit <br>
+                            <input type="radio" name="paymode" class="radiobtn" value="ANZ Grindlay Card">Debit<br>
+                            <input type="radio" name="paymode" class="radiobtn" value="Visa Card">GoPay<br>
+                            <input type="radio" name="paymode" class="radiobtn" value="Visa Card">LinkAja<br>
+                            <input type="radio" name="paymode" class="radiobtn" value="Visa Card">DANA<br>
+                            <span class="payerror">tolong pilih mode pembayaran</span></div>
+                        </fieldset>
+                        <fieldset>
+                            <div><span class="label">Pilih Mengambil mobil</span><select id="country" class="infobox">
+                                    <option value="0">pilih tempat</option>
+                                    <option value="USA">Di Kantor</option>
+                                    <option value="United Kingdom">lokasi lainnya (nanti dikabari via WA)</option>
+                                
+                                </select>
+                                <span class="error">tolong isi tempat mengambil mobil</span>
+                        </fieldset>
+
+                </div>
+                <input class="submit" onclick="myFunction()" type="submit" value="Submit">
+                <span class="success">tolong isi tempat mengambil mobil</span>
+                </form>
+            
+                </div>
+            </div>
+            <div class="row-sm-4"></div>
+        </div>
+
+    </div>
+
+
+    <div class="jumbotron text-center jumbotron-fluid" style="margin-bottom:0; background-color:rgb(0, 200, 134);">
+        <div class="container">
+            <div class="row" style="margin-top: 40px;">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <p style="font-size: 36; text-align: center; font-weight: bolder; color: white;"><i
+                            class="fas fa-car"></i> RentalAuto</p>
+                    <hr>
+                    <h5 style="color: white;">built by:</h5>
+                    <p style="margin-top: 15px;">
+                        <style>
+                            a:link {
+                                color: white;
+                            }
+
+                            a:visited {
+                                color: white;
+                            }
+                        </style>
+                        <b><a href="https://anantarzk.github.io//">ananta's github</a></b>
+                        <b><a href="https://putrirahmaf.github.io/" target="_blank">putri's github</a></b>
+                        <b><a href="https://tevepees.github.io/" target="_blank">tony's github</a></b>
+                    </p>
+                </div>
+                <div class="col-sm-2"></div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
